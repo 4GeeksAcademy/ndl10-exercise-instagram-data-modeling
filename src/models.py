@@ -12,15 +12,15 @@ class User(Base):
     __tablename__ = 'user'
 
     Id = Column(Integer, nullable = False, primary_key= True)
-    FirstName = Column(String(19), nullable = False)
-    LastName = Column(String(19), nullable = False)
+    First_name = Column(String(19), nullable = False)
+    Last_name = Column(String(19), nullable = False)
     Email = Column(String(60), nullable = False)
 
     def serialize(self):
         return {
             'Id': self.Id,
-            'FirstName': self.FirstName,
-            'LastName': self.LastName,
+            'First_name': self.FirstName,
+            'Last_name': self.LastName,
             'Email': self.Email
         }
         
@@ -29,14 +29,14 @@ class Follower(Base):
     __tablename__ = 'follower'
 
     Id = Column(Integer, nullable= False, primary_key = True)
-    Name = Column(String(20), nullable = False)
-    Email = Column(String(60), nullable = False)
+    user_from_id = Column(Integer, ForeignKey('user.Id'), nullable=False)
+    user_to_id = Column(Integer, ForeignKey('user.Id'), nullable=False)
 
     def serialize(self):
         return   {
             'Id': self.Id,
-            'Name': self.Name,
-            'Email': self.Email
+            'User_from_id': self.user_from_id,
+            'User_to_id': self.user_to_id
         }
 
       
@@ -85,10 +85,10 @@ class Comment(Base):
 
     def serialize(self):
         return {
-            Id : self.Id,
-            Comment_text: self.Comment_text,
-            Author_id: self.Author_id,
-            Post_id: self.Post_id
+            'Id' : self.Id,
+            'Comment_text': self.Comment_text,
+            'Author_id': self.Author_id,
+            'Post_id': self.Post_id
         }
 
 
